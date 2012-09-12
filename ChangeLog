@@ -332,3 +332,10 @@
 2012-08-30  Carsten Haitzler (The Rasterman)
 
         1.7.0 release
+
+2012-09-12 Patryk Kaczmarek <patryk.k@samsung.com>
+
+        * Add EINA_SAFETY checks for proper function arguments.
+        * Add check if given arguments (distance and coordinates) in eina_tiler
+        and eina_rectangle are not below zero
+        * Documentation for eina list specified and eina stringshare fixed
