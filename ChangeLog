@@ -1,4 +1,4 @@
-2011-01-29  Carsten Haitzler (The Rasterman)
+]2011-01-29  Carsten Haitzler (The Rasterman)
 
         1.0.0 release
 
@@ -339,3 +339,10 @@
         * Add check if given arguments (distance and coordinates) in eina_tiler
         and eina_rectangle are not below zero
         * Documentation for eina list specified and eina stringshare fixed
+
+2012-09-27  Carsten Haitzler (The Rasterman)
+
+        * Fix return value of eina_mmap_safety_enabled_set() and
+        ensure future eina_mmap_safety_enabled_get() return right value
+        on success.
+        
