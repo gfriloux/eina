@@ -345,4 +345,8 @@
         * Fix return value of eina_mmap_safety_enabled_set() and
         ensure future eina_mmap_safety_enabled_get() return right value
         on success.
-        
+
+2012-10-19  Patryk Kaczmarek
+
+	* eina_stringshare_add_length return NULL when func args are wrong.
+
