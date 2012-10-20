@@ -6,6 +6,8 @@ Changes since Eina 1.7.0:
 Fixes:
     * Fix return value of eina_mmap_safety_enabled_set() and future
     eina_mmap_safety_enabled_get() returns after success
+    * Fix eina_stringshare_add_length() to return NULL when wrong.
+    * Add EINA_SAFETY checks are wrong.
 
 Changes since Eina 1.2.0:
 -------------------------

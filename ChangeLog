@@ -350,3 +350,6 @@
 
 	* eina_stringshare_add_length return NULL when func args are wrong.
 
+2012-10-20  Cedric Bail
+
+	1.7.1 release
