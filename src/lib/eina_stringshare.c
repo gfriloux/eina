@@ -613,7 +613,7 @@ eina_stringshare_add_length(const char *str, unsigned int slen)
 {
    if (!str)
      return NULL;
-   else if (slen == 0))
+   else if (slen == 0)
      return "";
    else if (slen == 1)
      return (Eina_Stringshare *) _eina_stringshare_single + ((*str) << 1);
