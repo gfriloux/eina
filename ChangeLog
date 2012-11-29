@@ -358,3 +358,9 @@
 
         1.7.2 release
 
+2012-11-29 Vincent Torri
+
+        * Do not use -pthread anymore, but instead pass _REENTRANT to the
+	preprocessor and -lpthread to the linker.
+	* On Solaris OS, -mt is passed by default and same flags than
+	linux must be passed.
