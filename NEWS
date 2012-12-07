@@ -1,4 +1,10 @@
-Eina 1.7.2
+Eina 1.7.3
+
+Changes since Eina 1.7.2:
+-------------------------
+
+    * Fix Solaris build.
+    * Don't leak fd after exec.
 
 Changes since Eina 1.7.1:
 -------------------------
