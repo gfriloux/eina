@@ -16,8 +16,8 @@
  * if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EINA_INLINE_LOCK_WIN32_X_
-#define EINA_INLINE_LOCK_WIN32_X_
+#ifndef EINA_INLINE_LOCK_WINCE_X_
+#define EINA_INLINE_LOCK_WINCE_X_
 
 #ifdef EINA_UNUSED
 # undef EINA_UNUSED

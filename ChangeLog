@@ -373,4 +373,6 @@
 
 	* 1.7.3 release
 
+2012-12-12  Nicolas Aguirre
 
+	* Fix define EINA_UNUSED for win32 builds
