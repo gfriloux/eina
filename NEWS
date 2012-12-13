@@ -1,4 +1,8 @@
-Eina 1.7.3
+Eina 1.7.4
+
+Changes since Eina 1.7.3:
+
+    * Fix EINA_INLIST_FOREACH_SAFE macro
 
 Changes since Eina 1.7.2:
 -------------------------
