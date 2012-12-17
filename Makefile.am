@@ -52,13 +52,17 @@ m4/common/efl_voltron.m4 \
 m4/eina/eina_bench.m4 \
 m4/eina/eina_check.m4
 
-.PHONY: doc benchmark
+.PHONY: doc install-doc benchmark
 
 # Documentation
 
 doc:
 	@echo "entering doc/"
-	@cd doc && $(MAKE) doc
+	@$(MAKE) -C doc doc
+
+install-doc:
+	@echo "entering doc/"
+	@$(MAKE) -C doc install-doc
 
 # Unit tests
 

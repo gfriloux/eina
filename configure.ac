@@ -625,6 +625,9 @@ echo "  File xattr...........: ${efl_func_setxattr}"
 echo "  shm_open.............: ${efl_func_shm_open}"
 echo
 echo "  Documentation........: ${build_doc}"
+if test "x${build_doc}" = "xyes" ; then
+echo "    Installation.......: make install-doc"
+fi
 echo "  Tests................: ${enable_tests} (Coverage: ${efl_enable_coverage})"
 echo "  Examples.............: ${enable_build_examples}"
 echo "  Tiler Example........: ${build_tiler_example}"
