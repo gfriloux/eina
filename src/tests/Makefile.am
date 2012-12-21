@@ -125,7 +125,7 @@ evas_mempool.h
 
 if CITYHASH_BENCH
 noinst_LTLIBRARIES = libcity.la
-libcity_la_SOURCES = city.cc
+libcity_la_SOURCES = city.cc city.h
 
 nodist_EXTRA_eina_bench_SOURCES = dummy.cc
 eina_bench_LDADD = @GLIB_LIBS@ $(top_builddir)/src/lib/libeina.la libcity.la @EINA_LIBS@
