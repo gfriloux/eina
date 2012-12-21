@@ -3,6 +3,9 @@ Eina 1.7.4
 Changes since Eina 1.7.3:
 
     * Fix EINA_INLIST_FOREACH_SAFE macro
+    * Add XML output to doc
+    * Add installation rule for doc
+    * Fix build for Windows platforms.
 
 Changes since Eina 1.7.2:
 -------------------------
