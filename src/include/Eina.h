@@ -46,8 +46,8 @@
 /**
  * @mainpage Eina
  *
- * @version 1.7
- * @date 2008-2012
+ * @version 1.7.5
+ * @date 2008-2013
  *
  * @section eina_intro_sec Introduction
  *
