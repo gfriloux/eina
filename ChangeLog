@@ -400,4 +400,5 @@
 
 2013-02-06  Cedric Bail
 
-	* eina: counter measure denial of service on eina_hash function.
+	* counter measure denial of service on eina_hash function.
+	* fix map leak in Eina_File.

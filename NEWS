@@ -4,6 +4,7 @@ Changes since Eina 1.7.5:
 -------------------------
 
     * Prevent denial of service on Eina_Hash function.
+    * Fix map leak in Eina_File infrastructure.
 
 Changes since Eina 1.7.4:
 -------------------------
