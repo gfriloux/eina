@@ -1,4 +1,9 @@
-Eina 1.7.5
+Eina 1.7.6
+
+Changes since Eina 1.7.5:
+-------------------------
+
+    * Prevent denial of service on Eina_Hash function.
 
 Changes since Eina 1.7.4:
 -------------------------
@@ -6,6 +11,7 @@ Changes since Eina 1.7.4:
 No changes, just updating to keep in sync with last release.
 
 Changes since Eina 1.7.3:
+-------------------------
 
     * Fix EINA_INLIST_FOREACH_SAFE macro
     * Add XML output to doc
@@ -31,6 +37,8 @@ Fixes:
     eina_mmap_safety_enabled_get() returns after success
     * Fix eina_stringshare_add_length() to return NULL when wrong.
     * Add EINA_SAFETY checks are wrong.
+
+Eina 1.7.0
 
 Changes since Eina 1.2.0:
 -------------------------
