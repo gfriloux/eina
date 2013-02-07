@@ -3,6 +3,10 @@ Eina 1.7.6
 Changes since Eina 1.7.5:
 -------------------------
 
+Improvements:
+    * Honor tile size in Eina_Tiler.
+
+Fixes:
     * Prevent denial of service on Eina_Hash function.
     * Fix map leak in Eina_File infrastructure.
 
@@ -14,6 +18,7 @@ No changes, just updating to keep in sync with last release.
 Changes since Eina 1.7.3:
 -------------------------
 
+Fixes:
     * Fix EINA_INLIST_FOREACH_SAFE macro
     * Add XML output to doc
     * Add installation rule for doc

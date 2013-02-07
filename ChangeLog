@@ -402,3 +402,7 @@
 
 	* counter measure denial of service on eina_hash function.
 	* fix map leak in Eina_File.
+
+2013-02-07  Cedric Bail
+
+	* honor tile size in Eina_Tiler.
