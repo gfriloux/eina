@@ -33,6 +33,7 @@
 #include "eina_private.h"
 #include "eina_tiler.h"
 #include "eina_error.h"
+#include "eina_lock.h"
 
 /*============================================================================*
 *                                  Local                                     *
