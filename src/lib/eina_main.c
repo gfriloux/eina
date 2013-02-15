@@ -47,6 +47,8 @@
 #include <mcheck.h>
 #endif
 
+#include <time.h>
+
 #include "eina_lock.h"
 #include "eina_config.h"
 #include "eina_private.h"
