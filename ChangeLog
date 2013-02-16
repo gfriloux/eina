@@ -406,3 +406,7 @@
 2013-02-07  Cedric Bail
 
 	* honor tile size in Eina_Tiler.
+
+2013-02-16  Cedric Bail
+
+	* Fix portability issue on 64bits system for Eina_CList.
