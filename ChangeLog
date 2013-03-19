@@ -410,3 +410,7 @@
 2013-02-16  Cedric Bail
 
 	* Fix portability issue on 64bits system for Eina_CList.
+
+2013-03-19  Mike Blumenkrantz
+
+        * Fix magic failure in eina_value_array_count when array has not been allocated

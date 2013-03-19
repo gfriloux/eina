@@ -10,6 +10,7 @@ Fixes:
     * Prevent denial of service on Eina_Hash function.
     * Fix map leak in Eina_File infrastructure.
     * Fix portability issue on 64bits system for Eina_CList.
+    * Fix magic failure in eina_value_array_count when array has not been allocated
 
 Changes since Eina 1.7.4:
 -------------------------
