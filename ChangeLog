@@ -414,3 +414,7 @@
 2013-03-19  Mike Blumenkrantz
 
         * Fix magic failure in eina_value_array_count when array has not been allocated
+
+2013-04-04  Rafael Antognolli
+
+        * 1.7.6 release
