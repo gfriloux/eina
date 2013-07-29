@@ -1,3 +1,5 @@
+Eina 1.7.8
+
 Changes since Eina 1.7.7:
 -------------------------
 
@@ -5,11 +7,15 @@ Fixes:
     * Fix memory leak in eina_xattr_value_ls
 
 
+Eina 1.7.7
+
 Changes since Eina 1.7.6:
 -------------------------
 
 No changes, just updating to keep in sync with last release.
 
+
+Eina 1.7.6
 
 Changes since Eina 1.7.5:
 -------------------------
@@ -23,10 +29,16 @@ Fixes:
     * Fix portability issue on 64bits system for Eina_CList.
     * Fix magic failure in eina_value_array_count when array has not been allocated
 
+
+Eina 1.7.5
+
 Changes since Eina 1.7.4:
 -------------------------
 
 No changes, just updating to keep in sync with last release.
+
+
+Eina 1.7.4
 
 Changes since Eina 1.7.3:
 -------------------------
@@ -37,16 +49,25 @@ Fixes:
     * Add installation rule for doc
     * Fix build for Windows platforms.
 
+
+Eina 1.7.3
+
 Changes since Eina 1.7.2:
 -------------------------
 
     * Fix Solaris build.
     * Don't leak fd after exec.
 
+
+Eina 1.7.2
+
 Changes since Eina 1.7.1:
 -------------------------
 
 No changes, just updating to keep in sync with last release.
+
+
+Eina 1.7.1
 
 Changes since Eina 1.7.0:
 -------------------------
