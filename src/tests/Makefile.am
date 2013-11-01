@@ -70,7 +70,7 @@ eina_test_simple_xml_parser.c \
 eina_test_value.c
 # eina_test_model.c
 
-eina_suite_LDADD = @CHECK_LIBS@ $(top_builddir)/src/lib/libeina.la @EINA_LIBS@ -lm
+eina_suite_LDADD = @CHECK_LIBS@ $(top_builddir)/src/lib/libeina.la @EINA_LIBS@ @EFL_PTHREAD_LIBS@ -lm
 
 cxx_compile_test_SOURCES = cxx_compile_test.cxx
 cxx_compile_test_LDADD = $(top_builddir)/src/lib/libeina.la @EINA_LIBS@
