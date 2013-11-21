@@ -434,3 +434,8 @@
 2013-09-10  Eduardo Lima (Etrunko)
 
         * 1.7.9 release
+
+2013-11-21  Cedric Bail
+
+	* Fix race condition when calling eina_file_open/eina_file_close.
+
