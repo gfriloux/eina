@@ -439,3 +439,7 @@
 
 	* Fix race condition when calling eina_file_open/eina_file_close.
 
+
+2013-12-05  Eduardo Lima (Etrunko)
+
+        * 1.7.10 release
