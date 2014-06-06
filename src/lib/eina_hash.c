@@ -68,7 +68,7 @@
 #define EINA_HASH_BUCKET_SIZE       8
 #define EINA_HASH_SMALL_BUCKET_SIZE 5
 
-#define EINA_HASH_RBTREE_MASK       0xFFF
+#define EINA_HASH_RBTREE_MASK       0xFFFF
 
 typedef struct _Eina_Hash_Head         Eina_Hash_Head;
 typedef struct _Eina_Hash_Element      Eina_Hash_Element;
@@ -84,10 +84,10 @@ struct _Eina_Hash
    Eina_Free_Cb    data_free_cb;
 
    Eina_Rbtree   **buckets;
-   int             size;
-   int             mask;
-
-   int             population;
+   int             size,
+                   mask,
+                   population,
+                   buckets_power_size;
 
    EINA_MAGIC
 };
@@ -228,6 +228,7 @@ eina_hash_add_alloc_by_hash(Eina_Hash *hash,
 
    /* Apply eina mask to hash. */
    hash_num = key_hash & hash->mask;
+   key_hash >>= hash->buckets_power_size;
    key_hash &= EINA_HASH_RBTREE_MASK;
 
    if (!hash->buckets)
@@ -338,7 +339,7 @@ _eina_hash_find_by_hash(const Eina_Hash *hash,
                         Eina_Hash_Head **hash_head)
 {
    Eina_Hash_Element *hash_element;
-   int rb_hash = key_hash & EINA_HASH_RBTREE_MASK;
+   int rb_hash = (key_hash >> hash->buckets_power_size) & EINA_HASH_RBTREE_MASK;
 
    key_hash &= hash->mask;
 
@@ -754,6 +755,7 @@ eina_hash_new(Eina_Key_Length key_length_cb,
 
    new->size = 1 << buckets_power_size;
    new->mask = new->size - 1;
+   new->buckets_power_size = buckets_power_size;
 
    return new;
 
