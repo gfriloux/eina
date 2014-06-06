@@ -507,9 +507,13 @@ _eina_string_key_length(const char *key)
 }
 
 static int
-_eina_string_key_cmp(const char *key1, __UNUSED__ int key1_length,
-                     const char *key2, __UNUSED__ int key2_length)
+_eina_string_key_cmp(const char *key1, int key1_length,
+                     const char *key2, int key2_length)
 {
+   int delta;
+
+   delta = key1_length - key2_length;
+   if (delta) return delta;
    return strcmp(key1, key2);
 }
 
