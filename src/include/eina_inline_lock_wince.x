@@ -32,10 +32,12 @@
 
 EAPI extern Eina_Bool _threads_activated;
 
+/** @privatesection @{ */
 typedef HANDLE    Eina_Lock;
 typedef Eina_Lock Eina_RWLock;
 typedef DWORD     Eina_TLS;
 typedef void *    Eina_Semaphore;
+/** @} privatesection */
 
 static inline Eina_Bool
 eina_lock_new(Eina_Lock *mutex)
