@@ -482,7 +482,7 @@ _eina_matrixsparse_row_cell_idx_get(const Eina_Matrixsparse_Row *r,
    assert(dir != 0);
    if (dir > 0)
      {
-        for (; r; c = c->next)
+        for (; c; c = c->next)
            if (c->col == col)
              {
                 ((Eina_Matrixsparse_Row *)r)->last_used = c;
@@ -494,7 +494,7 @@ _eina_matrixsparse_row_cell_idx_get(const Eina_Matrixsparse_Row *r,
      }
    else if (dir < 0)
      {
-        for (; r; c = c->prev)
+        for (; c; c = c->prev)
           if (c->col == col)
             {
                ((Eina_Matrixsparse_Row *)r)->last_used = c;
