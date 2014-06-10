@@ -1006,7 +1006,7 @@ eina_file_open(const char *path, Eina_Bool shared)
                          NULL);
 
    if (handle == INVALID_HANDLE_VALUE)
-     return NULL;
+     goto close_file;
 
    fm = CreateFileMapping(handle, NULL, PAGE_READONLY, 0, 0, NULL);
    if (!fm)
@@ -1081,6 +1081,7 @@ eina_file_open(const char *path, Eina_Bool shared)
  close_handle:
    CloseHandle(handle);
 
+ close_file:
    ERR("Could not open file [%s].", filename);
    free(filename);
 
