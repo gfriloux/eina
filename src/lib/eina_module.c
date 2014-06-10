@@ -41,6 +41,7 @@ void *alloca (size_t);
 #include <stdio.h>
 #include <sys/types.h>
 #include <string.h>
+#include <unistd.h>
 
 #ifdef HAVE_LIBGEN_H
 # include <libgen.h>
@@ -463,7 +464,9 @@ EAPI char *eina_module_environment_path_get(const char *env,
    const char *env_dir;
 
    EINA_SAFETY_ON_NULL_RETURN_VAL(env, NULL);
-
+#if defined(HAVE_GETUID) && defined(HAVE_GETEUID)
+   if (getuid() != geteuid()) return NULL; // if setuid dont use dangerous env
+#endif
    env_dir = getenv(env);
    if (env_dir)
      {

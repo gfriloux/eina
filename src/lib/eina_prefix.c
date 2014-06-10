@@ -276,6 +276,9 @@ _try_argv(Eina_Prefix *pfx, const char *argv0)
 	  }
      }
    /* 3. argv0 no path - look in PATH */
+#if defined(HAVE_GETUID) && defined(HAVE_GETEUID)
+   if (getuid() != geteuid()) return 0;
+#endif
    DBG("Look for argv0=%s in $PATH", argv0);
    path = getenv("PATH");
    if (!path) return 0;
@@ -317,6 +320,9 @@ _get_env_var(char **var, const char *env, const char *prefix, const char *dir)
    char buf[PATH_MAX];
    const char *s = getenv(env);
 
+#if defined(HAVE_GETUID) && defined(HAVE_GETEUID)
+   if (getuid() != geteuid()) return 0;
+#endif
    DBG("Try env var %s", env);
    if (s)
      {
@@ -346,6 +352,10 @@ _get_env_vars(Eina_Prefix *pfx,
    const char *s;
    int ret = 0;
 
+#if defined(HAVE_GETUID) && defined(HAVE_GETEUID)
+   if (getuid() != geteuid())
+     return ret;
+#endif
    snprintf(env, sizeof(env), "%s_PREFIX", envprefix);
    if ((s = getenv(env))) STRDUP_REP(pfx->prefix_path, s);
    snprintf(env, sizeof(env), "%s_BIN_DIR", envprefix);
