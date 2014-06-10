@@ -63,10 +63,10 @@ void *alloca (size_t);
 #include "eina_stringshare.h"
 
 
-#ifdef CRITICAL
-#undef CRITICAL
+#ifdef CRI
+#undef CRI
 #endif
-#define CRITICAL(...) EINA_LOG_DOM_CRIT(_eina_share_stringshare_log_dom, __VA_ARGS__)
+#define CRI(...) EINA_LOG_DOM_CRIT(_eina_share_stringshare_log_dom, __VA_ARGS__)
 
 #ifdef ERR
 #undef ERR
@@ -406,7 +406,7 @@ _eina_stringshare_small_del(const char *str, unsigned char length)
    return;
 
 error:
-   CRITICAL("EEEK trying to del non-shared stringshare \"%s\"", str);
+   CRI("EEEK trying to del non-shared stringshare \"%s\"", str);
 }
 
 static void
@@ -605,7 +605,7 @@ eina_stringshare_del(Eina_Stringshare *str)
      }
 
    if (!eina_share_common_del(stringshare_share, str))
-     CRITICAL("EEEK trying to del non-shared stringshare \"%s\"", str);
+     CRI("EEEK trying to del non-shared stringshare \"%s\"", str);
 }
 
 EAPI Eina_Stringshare *
