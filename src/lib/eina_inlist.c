@@ -605,8 +605,6 @@ eina_inlist_sorted_insert(Eina_Inlist *list,
              else
                break;
           }
-        else
-          break;
      }
 
    /* If at the beginning of the table and cmp < 0,
@@ -651,8 +649,6 @@ eina_inlist_sorted_insert(Eina_Inlist *list,
              else
                break;
           }
-        else
-          break;
      }
 
    if (cmp <= 0)
