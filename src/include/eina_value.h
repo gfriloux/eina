@@ -211,7 +211,7 @@
  * Next we have setting, this however requires not one but rather two functions,
  * the reason for this is because to be able to receive arguments of any type
  * eina value uses <a href="https://wikipedia.org/wiki/Variadic_functions">
- * variadic functions</a>, so we need a function to get the argument from a 
+ * variadic functions</a>, so we need a function to get the argument from a
  * va_list and another to actually to the setting.
  *
  * Lets first look at the pset function which sets the received value to a
@@ -285,7 +285,7 @@
  * It is meant for simple data types, providing uniform access and
  * release functions, useful to exchange data preserving their
  * types. For more complex hierarchical data, with properties and
- * children, reference counting, inheritance and interfaces, 
+ * children, reference counting, inheritance and interfaces.
  *
  * Examples of usage of the Eina_Value API:
  * @li @ref eina_value_example_01_page
@@ -646,7 +646,7 @@ EAPI Eina_Value *eina_value_new(const Eina_Value_Type *type) EINA_ARG_NONNULL(1)
  *
  * @since 1.2
  */
-EAPI void eina_value_free(Eina_Value *value) EINA_ARG_NONNULL(1);
+EAPI void eina_value_free(Eina_Value *value);
 
 
 /**
