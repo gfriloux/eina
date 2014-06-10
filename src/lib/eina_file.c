@@ -82,22 +82,26 @@ void *alloca (size_t);
  */
 
 #ifndef EINA_LOG_COLOR_DEFAULT
+/** Set the color for Eina log entries */
 #define EINA_LOG_COLOR_DEFAULT EINA_COLOR_CYAN
 #endif
 
 #ifdef ERR
 #undef ERR
 #endif
+/** Macro for logging Eina errors */
 #define ERR(...) EINA_LOG_DOM_ERR(_eina_file_log_dom, __VA_ARGS__)
 
 #ifdef WRN
 #undef WRN
 #endif
+/** Macro for logging Eina warnings */
 #define WRN(...) EINA_LOG_DOM_WARN(_eina_file_log_dom, __VA_ARGS__)
 
 #ifdef DBG
 #undef DBG
 #endif
+/** Macro for logging Eina debug messages */
 #define DBG(...) EINA_LOG_DOM_DBG(_eina_file_log_dom, __VA_ARGS__)
 
 #define EINA_SMALL_PAGE 4096
@@ -105,6 +109,7 @@ void *alloca (size_t);
 
 #ifdef HAVE_DIRENT_H
 typedef struct _Eina_File_Iterator Eina_File_Iterator;
+
 struct _Eina_File_Iterator
 {
    Eina_Iterator iterator;
@@ -116,45 +121,64 @@ struct _Eina_File_Iterator
 };
 #endif
 
+/**
+ * @struct _Eina_File
+ *
+ * This is the underlying data structure that represents a file in Eina.
+ *
+ */
 struct _Eina_File
 {
-   const char *filename;
+   const char *filename;         /**< The absolute path of the file. Note that the path given when calling @ref eina_file_open will be run through @ref eina_file_path_sanitize before it is stored here. */ 
 
-   Eina_Hash *map;
-   Eina_Hash *rmap;
-   void *global_map;
+   Eina_Hash *map;               /**< Tracks portions of a file that have been mapped with mmap(2).  The key is a tuple offset/length and the data is a pointer to the mapped region. */
+   Eina_Hash *rmap;              /**< Similar function to #map, but used to look up mapped areas by pointer rather than offset/length. */
+   void *global_map;             /**< A pointer to the entire contents of the file that have been mapped with mmap(2).  This is the common case, and EFL and is optimized for it. */
 
-   Eina_Lock lock;
+   Eina_Lock lock;               /**< A file locking mechanism. */
 
-   unsigned long long length;
-   time_t mtime;
-   ino_t inode;
+   unsigned long long length;    /**< The length of the file in bytes. */
+   time_t mtime;                 /**< The last modified time. */
+   ino_t inode;                  /**< The inode. */
 #ifdef _STAT_VER_LINUX
-   unsigned long int mtime_nsec;
+   unsigned long int mtime_nsec; /**< The nano version of the last modified time. */
 #endif
 
-   int refcount;
-   int global_refcount;
+   int refcount;                 /**< Keeps track of references to #map. */
+   int global_refcount;          /**< Keeps track of references to #global_map. */
 
-   int fd;
+   int fd;                       /**< The file descriptor. */
 
-   Eina_Bool shared : 1;
-   Eina_Bool delete_me : 1;
-   Eina_Bool global_faulty : 1;
+   Eina_Bool shared : 1;         /**< Indicates whether this file can be shared */
+   Eina_Bool delete_me : 1;      /**< Indicates that this file should be deleted */
+   Eina_Bool global_faulty : 1;  /**< Indicates whether #global_map is bad */
 };
 
+/**
+ * @typedef Eina_File_Map
+ *
+ * Type definition for an Eina File Map.
+ *
+ */
 typedef struct _Eina_File_Map Eina_File_Map;
+
+/**
+ * @struct _Eina_File_Map
+ *
+ * This represents a memory mapped region of a file.
+ *
+ */
 struct _Eina_File_Map
 {
-   void *map;
+   void *map;                /**< A pointer to the mapped region */
 
-   unsigned long int offset;
-   unsigned long int length;
+   unsigned long int offset; /**< The offset in the file */
+   unsigned long int length; /**< The length of the region */
 
-   int refcount;
+   int refcount;             /**< Tracks references to this region */
 
-   Eina_Bool hugetlb : 1;
-   Eina_Bool faulty : 1;
+   Eina_Bool hugetlb : 1;    /**< Indicates if we are using HugeTLB */
+   Eina_Bool faulty : 1;     /**< Indicates if this region was not mapped correctly (i.e. the call to mmap(2) failed). */
 };
 
 static Eina_Hash *_eina_file_cache = NULL;

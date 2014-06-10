@@ -208,6 +208,11 @@
 /**
  * @def EINA_ARG_NONNULL
  * Used to warn when the specified arguments of the function are @c NULL.
+ *
+ * @param ... Oridnals of the parameters to check for nullity (1..n)
+ *
+ * @return Nothing.
+ *
  */
 # define EINA_ARG_NONNULL(...)
 
