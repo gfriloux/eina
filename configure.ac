@@ -481,7 +481,7 @@ EFL_LINKER_FLAG([-fno-strict-aliasing])
 ### Checks for library functions
 AC_FUNC_ALLOCA
 
-AC_CHECK_FUNCS([strlcpy openat fstatat fpathconf execvp backtrace backtrace_symbols malloc_usable_size mtrace geteuid getuid])
+AC_CHECK_FUNCS([strlcpy openat fstatat fpathconf execvp backtrace backtrace_symbols malloc_usable_size mtrace geteuid getuid fcntl])
 
 EFL_CHECK_FUNCS([eina], [dirfd dlopen dladdr fnmatch iconv shm_open setxattr])
 
