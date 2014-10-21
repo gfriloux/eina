@@ -3,7 +3,7 @@
 _pkgname=eina
 #pkgname=('eina' 'eina_doc')
 pkgname=('eina')
-pkgver=1.7.10
+pkgver=1.7.11
 pkgrel=1
 
 pkgdesc="Enlightenment Foundation Libraries - Eina"
