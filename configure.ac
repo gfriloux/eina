@@ -614,8 +614,6 @@ echo "  Log support..........: ${enable_log}"
 echo "  Thread Support.......: ${efl_have_threads}"
 if test "${efl_have_threads}" = "POSIX" ; then
 echo "    spinlock...........: ${efl_have_posix_threads_spinlock}"
-echo "    debug usage........: ${efl_have_debug_threads}"
-echo "    on/off support.....: ${efl_have_on_off_threads}"
 fi
 echo "  Amalgamation.........: ${do_amalgamation}"
 echo "  Iconv support........: ${efl_func_iconv}"
