@@ -409,6 +409,7 @@ _eina_file_real_close(Eina_File *file)
 
    eina_hash_free(file->rmap);
    eina_hash_free(file->map);
+   eina_lock_free(&file->lock);
 
    if (file->global_map != MAP_FAILED)
      munmap(file->global_map, file->length);
@@ -1019,10 +1020,10 @@ eina_file_open(const char *path, Eina_Bool shared)
      {
         n = malloc(sizeof(Eina_File) + strlen(filename) + 1);
         if (!n)
-	  {
+	       {
              eina_lock_release(&_eina_file_lock_cache);
              goto on_error;
-	  }
+	       }
 
         memset(n, 0, sizeof(Eina_File));
         n->filename = (char*) (n + 1);
