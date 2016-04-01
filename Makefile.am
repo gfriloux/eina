@@ -24,7 +24,8 @@ m4/libtool.m4 \
 m4/lt~obsolete.m4 \
 m4/ltoptions.m4 \
 m4/ltsugar.m4 \
-m4/ltversion.m4
+m4/ltversion.m4 \
+rpm/$(PACKAGE).spec
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = eina.pc
@@ -35,9 +36,7 @@ COPYING \
 README \
 $(pkgconfig_DATA) \
 autogen.sh \
-eina.pc.in \
-eina.spec \
-eina.spec.in \
+$(PACKAGE).pc.in \
 m4/common/efl_attribute.m4 \
 m4/common/efl_benchmark.m4 \
 m4/common/efl_check_funcs.m4 \
@@ -49,8 +48,9 @@ m4/common/efl_path_max.m4 \
 m4/common/efl_tests.m4 \
 m4/common/efl_threads.m4 \
 m4/common/efl_voltron.m4 \
-m4/eina/eina_bench.m4 \
-m4/eina/eina_check.m4
+m4/$(PACKAGE)/$(PACKAGE)_bench.m4 \
+m4/$(PACKAGE)/$(PACKAGE)_check.m4 \
+rpm/$(PACKAGE).spec.in
 
 .PHONY: doc install-doc benchmark
 

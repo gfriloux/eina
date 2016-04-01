@@ -572,6 +572,7 @@ eina.pc
 eina.spec
 doc/Makefile
 doc/Doxyfile
+rpm/${PACKAGE}.spec
 src/Makefile
 src/include/Makefile
 src/include/eina_config.h
