@@ -568,14 +568,12 @@ EFL_CHECK_INSTALL_EXAMPLES([enable_install_examples="yes"], [enable_install_exam
 
 AC_CONFIG_FILES([
 Makefile
-eina.pc
-eina.spec
+${PACKAGE}.pc
 doc/Makefile
 doc/Doxyfile
-rpm/${PACKAGE}.spec
 src/Makefile
 src/include/Makefile
-src/include/eina_config.h
+src/include/${PACKAGE}_config.h
 src/lib/Makefile
 src/modules/Makefile
 src/modules/mp/Makefile
@@ -590,7 +588,9 @@ src/tests/Makefile
 src/examples/Makefile
 ])
 
-AC_OUTPUT
+AC_OUTPUT([
+rpm/${PACKAGE_NAME}.spec
+])
 
 #####################################################################
 ## Info
