@@ -59,3 +59,8 @@ NOCONFIGURE=yes ./autogen.sh
 %{_libdir}/*.so
 %{_libdir}/*.la
 %{_libdir}/*.a
+
+%changelog
+* %(LANG=C date "+%a %b %d %Y") Auto RPM build - %{version}-%{release}
+- version %{version}
+
