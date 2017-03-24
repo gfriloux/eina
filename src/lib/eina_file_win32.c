@@ -175,22 +175,15 @@ static int _eina_file_log_dom = -1;
 static Eina_Bool
 _eina_file_win32_is_dir(const char *dir)
 {
-#ifdef UNICODE
-   wchar_t *wdir = NULL;
-#endif
+   wchar_t *wdir;
    DWORD    attr;
 
-   /* check if it's a directory */
-#ifdef UNICODE
-   wdir = evil_char_to_wchar(dir);
+   wdir = evil_utf8_to_utf16(dir);
    if (!wdir)
      return EINA_FALSE;
 
    attr = GetFileAttributes(wdir);
    free(wdir);
-#else
-   attr = GetFileAttributes(dir);
-#endif
 
    if (attr == 0xFFFFFFFF)
      return EINA_FALSE;
@@ -223,25 +216,20 @@ static HANDLE
 _eina_file_win32_first_file(const char *dir, WIN32_FIND_DATA *fd)
 {
   HANDLE h;
-#ifdef UNICODE
    wchar_t *wdir = NULL;
 
-   wdir = evil_char_to_wchar(dir);
+   wdir = evil_utf8_to_utf16(dir);
    if (!wdir)
      return INVALID_HANDLE_VALUE;
 
    h = FindFirstFile(wdir, fd);
    free(wdir);
-#else
-   h = FindFirstFile(dir, fd);
-#endif
 
    if (!h)
      return INVALID_HANDLE_VALUE;
 
-   while ((fd->cFileName[0] == '.') &&
-          ((fd->cFileName[1] == '\0') ||
-           ((fd->cFileName[1] == '.') && (fd->cFileName[2] == '\0'))))
+   while ((!wcscmp(fd->cFileName, L".")) ||
+          (!wcscmp(fd->cFileName, L"..")))
      {
         if (!FindNextFile(h, fd))
           return INVALID_HANDLE_VALUE;
@@ -253,11 +241,6 @@ _eina_file_win32_first_file(const char *dir, WIN32_FIND_DATA *fd)
 static Eina_Bool
 _eina_file_win32_ls_iterator_next(Eina_File_Iterator *it, void **data)
 {
-#ifdef UNICODE
-   wchar_t  *old_name;
-#else
-   char     *old_name;
-#endif
    char     *name;
    char     *cname;
    size_t    length;
@@ -272,12 +255,8 @@ _eina_file_win32_ls_iterator_next(Eina_File_Iterator *it, void **data)
      }
 
    is_last = it->is_last;
-#ifdef UNICODE
-   old_name = _wcsdup(it->data.cFileName);
-#else
-   old_name = _strdup(it->data.cFileName);
-#endif
-   if (!old_name)
+   cname = evil_utf16_to_utf8(it->data.cFileName);
+   if (!cname)
      return EINA_FALSE;
 
    do {
@@ -288,17 +267,8 @@ _eina_file_win32_ls_iterator_next(Eina_File_Iterator *it, void **data)
            else
              res = EINA_FALSE;
         }
-   } while ((it->data.cFileName[0] == '.') &&
-            ((it->data.cFileName[1] == '\0') ||
-             ((it->data.cFileName[1] == '.') && (it->data.cFileName[2] == '\0')))); /* FIXME: what about UNICODE ? */
-
-#ifdef UNICODE
-   cname = evil_wchar_to_char(old_name);
-   if (!cname)
-     return EINA_FALSE;
-#else
-     cname = old_name;
-#endif
+   } while ((!wcscmp(it->data.cFileName, L"."))  ||
+            (!wcscmp(it->data.cFileName, L"..")));
 
    length = strlen(cname);
    name = alloca(length + 2 + it->length);
@@ -309,10 +279,7 @@ _eina_file_win32_ls_iterator_next(Eina_File_Iterator *it, void **data)
 
    *data = (char *)eina_stringshare_add(name);
 
-#ifdef UNICODE
    free(cname);
-#endif
-   free(old_name);
 
    if (is_last)
      res = EINA_FALSE;
@@ -339,11 +306,6 @@ _eina_file_win32_ls_iterator_free(Eina_File_Iterator *it)
 static Eina_Bool
 _eina_file_win32_direct_ls_iterator_next(Eina_File_Direct_Iterator *it, void **data)
 {
-#ifdef UNICODE
-   wchar_t  *old_name;
-#else
-   char     *old_name;
-#endif
    char     *cname;
    size_t    length;
    DWORD     attr;
@@ -359,12 +321,9 @@ _eina_file_win32_direct_ls_iterator_next(Eina_File_Direct_Iterator *it, void **d
 
    attr = it->data.dwFileAttributes;
    is_last = it->is_last;
-#ifdef UNICODE
-   old_name = _wcsdup(it->data.cFileName);
-#else
-   old_name = _strdup(it->data.cFileName);
-#endif
-   if (!old_name)
+
+   cname = evil_utf16_to_utf8(it->data.cFileName);
+   if (!cname)
      return EINA_FALSE;
 
    do {
@@ -376,33 +335,15 @@ _eina_file_win32_direct_ls_iterator_next(Eina_File_Direct_Iterator *it, void **d
              res = EINA_FALSE;
         }
 
-#ifdef UNICODE
-     length = wcslen(old_name);
-#else
-     length = strlen(old_name);
-#endif
+     length = strlen(cname);
      if (it->info.name_start + length + 1 >= PATH_MAX)
        {
-          free(old_name);
-#ifdef UNICODE
-          old_name = _wcsdup(it->data.cFileName);
-#else
-          old_name = _strdup(it->data.cFileName);
-#endif
+          free(cname);
+          cname = evil_utf16_to_utf8(it->data.cFileName);
           continue;
        }
-
-   } while ((it->data.cFileName[0] == '.') &&
-            ((it->data.cFileName[1] == '\0') ||
-             ((it->data.cFileName[1] == '.') && (it->data.cFileName[2] == '\0')))); /* FIXME: what about UNICODE ? */
-
-#ifdef UNICODE
-   cname = evil_wchar_to_char(old_name);
-   if (!cname)
-     return EINA_FALSE;
-#else
-     cname = old_name;
-#endif
+   } while ((!wcscmp(it->data.cFileName, L"."))  ||
+            (!wcscmp(it->data.cFileName, L"..")));
 
    memcpy(it->info.path + it->info.name_start, cname, length);
    it->info.name_length = length;
@@ -426,11 +367,7 @@ _eina_file_win32_direct_ls_iterator_next(Eina_File_Direct_Iterator *it, void **d
 
    *data = &it->info;
 
-#ifdef UNICODE
    free(cname);
-#endif
-
-   free(old_name);
 
    if (is_last)
      res = EINA_FALSE;
@@ -745,16 +682,26 @@ eina_file_path_sanitize(const char *path)
         l = GetCurrentDirectory(0, NULL);
         if (l > 0)
           {
+             wchar_t *wcwd;
              char *cwd;
              char *tmp;
 
-             cwd = alloca(sizeof(char) * (l + 1));
-             GetCurrentDirectory(l + 1, cwd);
+             wcwd = alloca(sizeof(wchar_t) * (l + 1));
+             if (!wcwd) return NULL;
+
+             GetCurrentDirectory(l + 1, wcwd);
+
+             cwd = evil_utf16_to_utf8(wcwd);
+             if (!cwd) return NULL;
+
+             l = strlen(cwd);
+
              len += l + 2;
              tmp = alloca(sizeof (char) * len);
              snprintf(tmp, len, "%s\\%s", cwd, path);
              tmp[len - 1] = '\0';
              result = tmp;
+             free(cwd);
           }
      }
 
@@ -791,11 +738,7 @@ eina_file_dir_list(const char *dir,
      {
         char *filename;
 
-# ifdef UNICODE
-        filename = evil_wchar_to_char(file.cFileName);
-# else
-        filename = file.cFileName;
-# endif /* ! UNICODE */
+        filename = evil_utf16_to_utf8(file.cFileName);
         if (!strcmp(filename, ".") || !strcmp(filename, ".."))
            continue;
 
@@ -816,10 +759,7 @@ eina_file_dir_list(const char *dir,
              eina_file_dir_list(path, recursive, cb, data);
           }
 
-# ifdef UNICODE
         free(filename);
-# endif /* UNICODE */
-
      } while (FindNextFile(h, &file));
    FindClose(h);
 
@@ -990,6 +930,7 @@ eina_file_open(const char *path, Eina_Bool shared)
    Eina_File *file;
    Eina_File *n;
    char *filename;
+   wchar_t *wfilename;
    HANDLE handle;
    HANDLE fm;
    WIN32_FILE_ATTRIBUTE_DATA fad;
@@ -1001,15 +942,18 @@ eina_file_open(const char *path, Eina_Bool shared)
    filename = eina_file_path_sanitize(path);
    if (!filename) return NULL;
 
+   wfilename = evil_utf8_to_utf16(filename);
+   if (!wfilename) return NULL;
+
    /* FIXME: how to emulate shm_open ? Just OpenFileMapping ? */
 #if 0
    if (shared)
-     handle = CreateFile(filename, GENERIC_READ, FILE_SHARE_READ,
+     handle = CreateFile(wfilename, GENERIC_READ, FILE_SHARE_READ,
                          NULL, OPEN_EXISTING, FILE_ATTRIBUTE_READONLY,
                          NULL);
    else
 #endif
-     handle = CreateFile(filename, GENERIC_READ, FILE_SHARE_READ,
+     handle = CreateFile(wfilename, GENERIC_READ, FILE_SHARE_READ,
                          NULL, OPEN_EXISTING, FILE_ATTRIBUTE_READONLY,
                          NULL);
 
@@ -1020,7 +964,7 @@ eina_file_open(const char *path, Eina_Bool shared)
    if (!fm)
      goto close_handle;
 
-   if (!GetFileAttributesEx(filename, GetFileExInfoStandard, &fad))
+   if (!GetFileAttributesEx(wfilename, GetFileExInfoStandard, &fad))
      goto close_fm;
 
    length.u.LowPart = fad.nFileSizeLow;
@@ -1081,6 +1025,7 @@ eina_file_open(const char *path, Eina_Bool shared)
    eina_lock_release(&_eina_file_lock_cache);
 
    free(filename);
+   free(wfilename);
 
    return n;
 
@@ -1090,6 +1035,7 @@ eina_file_open(const char *path, Eina_Bool shared)
    CloseHandle(handle);
 
  close_file:
+   free(wfilename);
    ERR("Could not open file [%s].", filename);
    free(filename);
 

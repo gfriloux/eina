@@ -2,7 +2,7 @@
 ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 m4_define([v_maj], [1])
 m4_define([v_min], [7])
-m4_define([v_mic], [11])
+m4_define([v_mic], [13])
 m4_define([v_rev], m4_esyscmd([(git rev-list --count HEAD 2>/dev/null || echo 0) | tr -d '\n']))dnl
 ##--   When released, remove the dnl on the below line
 m4_undefine([v_rev])
@@ -293,6 +293,8 @@ case "$host_os" in
    mingw*)
       PKG_CHECK_EXISTS([evil >= 1.7.10])
       AC_DEFINE([HAVE_EVIL], [1], [Set to 1 if Evil package is installed])
+      AC_DEFINE([UNICODE], [1], [Set to 1 to use unicode version of windows api])
+      AC_DEFINE([_UNICODE], [1], [Set to 1 to use unicode version of windows api])
       requirements_pc_eina="${requirements_pc_eina} evil"
       EFL_EINA_BUILD="-DEFL_EINA_BUILD"
    ;;
