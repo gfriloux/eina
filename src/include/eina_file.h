@@ -187,7 +187,7 @@ struct _Eina_Stat
    unsigned int         uid;       /**< The owner user id */
    unsigned int         gid;       /**< The owner group id */
    unsigned long int    rdev;      /**< The remote device */
-   unsigned long int    size;      /**< The file size in bytes */
+   off_t                size;      /**< The file size in bytes */
    unsigned long int    blksize;   /**< The block size in bytes */
    unsigned long int    blocks;    /**< The number of blocks allocated */
    unsigned long int    atime;     /**< The timestamp when the file was last accessed */
