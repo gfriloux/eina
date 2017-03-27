@@ -1304,11 +1304,18 @@ EAPI int
 eina_file_statat(void *container __UNUSED__, Eina_File_Direct_Info *info, Eina_Stat *st)
 {
    struct __stat64 buf;
+   wchar_t *wpath;
+   int r;
 
    EINA_SAFETY_ON_NULL_RETURN_VAL(info, -1);
    EINA_SAFETY_ON_NULL_RETURN_VAL(st, -1);
 
-   if (stat64(info->path, &buf))
+   wpath = evil_utf8_to_utf16(info->path);
+   EINA_SAFETY_ON_NULL_RETURN_VAL(wpath, -1);
+
+   r = _wstat64(wpath, &buf);
+   free(wpath);
+   if (r)
      {
         if (info->type != EINA_FILE_LNK)
           info->type = EINA_FILE_UNKNOWN;
