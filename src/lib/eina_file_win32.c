@@ -875,9 +875,6 @@ eina_file_direct_ls(const char *dir)
 
    length = strlen(dir);
 
-   if (length + 12 + 2 >= MAX_PATH)
-      return NULL;
-
    it = calloc(1, sizeof(Eina_File_Direct_Iterator) + length);
    if (!it)
       return NULL;
