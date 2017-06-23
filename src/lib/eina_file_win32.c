@@ -336,12 +336,6 @@ _eina_file_win32_direct_ls_iterator_next(Eina_File_Direct_Iterator *it, void **d
         }
 
      length = strlen(cname);
-     if (it->info.name_start + length + 1 >= PATH_MAX)
-       {
-          free(cname);
-          cname = evil_utf16_to_utf8(it->data.cFileName);
-          continue;
-       }
    } while ((!wcscmp(it->data.cFileName, L"."))  ||
             (!wcscmp(it->data.cFileName, L"..")));
 
